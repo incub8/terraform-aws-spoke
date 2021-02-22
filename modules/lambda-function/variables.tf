@@ -116,6 +116,12 @@ variable "spoke_default_service" {
   default     = "twilio"
 }
 
+variable "phone_number_country" {
+  type        = "string"
+  description = "The country contact phone numbers are from"
+  default     = "DE"
+}
+
 ## Twilio
 
 variable "spoke_twilio_account_sid" {
@@ -147,6 +153,56 @@ variable "spoke_nexmo_api_key" {
 variable "spoke_nexmo_api_secret" {
   type        = "string"
   description = "Nexmo API secret."
+  default     = ""
+}
+
+## websms
+
+variable "websms_app_url" {
+  type        = "string"
+  description = "websms_app_url"
+  default     = ""
+}
+
+variable "websms_callback_token" {
+  type        = "string"
+  description = "websms_callback_token"
+  default     = ""
+}
+
+variable "websms_username" {
+  type        = "string"
+  description = "websms_username"
+  default     = ""
+}
+
+variable "websms_password" {
+  type        = "string"
+  description = "websms_password"
+  default     = ""
+}
+
+variable "websms_gateway_url" {
+  type        = "string"
+  description = "websms_gateway_url"
+  default     = ""
+}
+
+variable "websms_sender_address" {
+  type        = "string"
+  description = "websms_sender_address"
+  default     = ""
+}
+
+variable "websms_sender_address_type" {
+  type        = "string"
+  description = "websms_sender_address_type"
+  default     = ""
+}
+
+variable "websms_max_sms_per_message" {
+  type        = "string"
+  description = "websms_max_sms_per_message"
   default     = ""
 }
 
