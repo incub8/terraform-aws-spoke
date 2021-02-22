@@ -63,7 +63,7 @@ resource "aws_db_instance" "spoke" {
   allocated_storage      = "${var.rds_size}"
   storage_type           = "gp2"
   engine                 = "postgres"
-  engine_version         = "10.4"
+  engine_version         = "10.13"
   instance_class         = "${var.rds_class}"
   name                   = "${var.rds_dbname}"
   port                   = "${var.rds_port}"
