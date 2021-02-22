@@ -1,10 +1,10 @@
 # Spoke on AWS
-# 
+#
 # This will automate creation of resources for running Spoke on AWS. This only
 # takes care of the resource creation listed in the first section of the AWS
 # Deploy guide (docs/DEPLOYING_AWS_LAMBDA.md). It will _not_ actually deploy
 # the code.
-# 
+#
 # Author: @bchrobot <benjamin.blair.chrobot@gmail.com>
 # Version 0.1.0
 
@@ -45,7 +45,7 @@ resource "aws_s3_bucket" "spoke_bucket" {
   bucket = "${var.s3_bucket_name}"
   acl    = "private"
 
-  tags {
+  tags = {
     Name = "Spoke Bucket"
   }
 }
@@ -63,7 +63,7 @@ module "postgres" {
   source = "./modules/rds-postgres"
 
   vpc_id        = "${module.vpc.vpc_id}"
-  subnet_ids    = ["${module.vpc.aws_public_subnet_ids}"]
+  subnet_ids    = "${module.vpc.aws_public_subnet_ids}"
   rds_password  = "${var.rds_password}"
 }
 
@@ -77,7 +77,7 @@ resource "aws_s3_bucket_object" "client_payload" {
   bucket = "${var.s3_bucket_name}"
   key    = "static/bundle.${var.client_bundle_hash}.js"
   source = "${var.client_bundle_location}"
-  etag   = "${md5(file("${var.client_bundle_location}"))}"
+  etag   = "${md5(filebase64sha256("${var.client_bundle_location}"))}"
   depends_on = ["aws_s3_bucket.spoke_bucket"]
 }
 
@@ -86,7 +86,7 @@ resource "aws_s3_bucket_object" "server_payload" {
   bucket = "${var.s3_bucket_name}"
   key    = "deploy/server.zip"
   source = "${var.server_bundle_location}"
-  etag   = "${md5(file("${var.server_bundle_location}"))}"
+  etag   = "${md5(filebase64sha256("${var.server_bundle_location}"))}"
   depends_on = ["aws_s3_bucket.spoke_bucket"]
 }
 
@@ -94,11 +94,11 @@ module "lambda" {
   source = "./modules/lambda-function"
 
   vpc_id      = "${module.vpc.vpc_id}"
-  subnet_ids  = ["${module.vpc.aws_private_subnet_ids}"]
+  subnet_ids  = "${module.vpc.aws_private_subnet_ids}"
   aws_region  = "${var.aws_region}"
   s3_bucket_name   = "${var.s3_bucket_name}"
   s3_key      = "deploy/server.zip"
-  source_code_hash  = "${base64sha256(file("${var.server_bundle_location}"))}"
+  source_code_hash  = "${filebase64sha256("${var.server_bundle_location}")}"
 
   db_host     = "${module.postgres.address}"
   db_port     = "${module.postgres.port}"

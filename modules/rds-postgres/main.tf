@@ -20,7 +20,7 @@ resource "aws_security_group" "postgres" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "Spoke Postgres"
   }
 }
@@ -47,9 +47,9 @@ resource "aws_security_group_rule" "allow_all_postgres" {
 # Source: https://www.terraform.io/docs/providers/aws/r/db_subnet_group.html
 resource "aws_db_subnet_group" "postgres" {
   name       = "postgres"
-  subnet_ids = ["${var.subnet_ids}"]
+  subnet_ids = "${var.subnet_ids}"
 
-  tags {
+  tags = {
     Name = "Spoke Postgres"
   }
 }

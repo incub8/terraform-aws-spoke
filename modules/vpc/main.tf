@@ -5,7 +5,7 @@ resource "aws_vpc" "spoke_vpc" {
   enable_dns_support     = true
   enable_dns_hostnames   = true
 
-  tags {
+  tags = {
     Name = "Spoke VPC"
   }
 }
@@ -16,7 +16,7 @@ resource "aws_vpc" "spoke_vpc" {
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.spoke_vpc.id}"
 
-  tags {
+  tags = {
     Name = "Spoke IGW"
   }
 }
@@ -31,7 +31,7 @@ resource "aws_subnet" "public_a" {
   cidr_block = "10.0.1.0/24"
   availability_zone = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "Public A"
   }
 }
@@ -42,7 +42,7 @@ resource "aws_subnet" "public_b" {
   cidr_block = "10.0.2.0/24"
   availability_zone = "${var.aws_region}b"
 
-  tags {
+  tags = {
     Name = "Public B"
   }
 }
@@ -53,7 +53,7 @@ resource "aws_subnet" "private_a" {
   cidr_block = "10.0.3.0/24"
   availability_zone = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "Private A"
   }
 }
@@ -64,7 +64,7 @@ resource "aws_subnet" "private_b" {
   cidr_block = "10.0.4.0/24"
   availability_zone = "${var.aws_region}b"
 
-  tags {
+  tags = {
     Name = "Private B"
   }
 }
@@ -85,7 +85,7 @@ resource "aws_nat_gateway" "gw" {
   allocation_id = "${aws_eip.lambda_nat.id}"
   subnet_id     = "${aws_subnet.public_a.id}"
 
-  tags {
+  tags = {
     Name = "Lambda NAT"
   }
 
@@ -106,7 +106,7 @@ resource "aws_route_table" "public" {
     gateway_id = "${aws_internet_gateway.gw.id}"
   }
 
-  tags {
+  tags = {
     Name = "Public Route Table"
   }
 }
@@ -120,7 +120,7 @@ resource "aws_route_table" "private" {
     nat_gateway_id = "${aws_nat_gateway.gw.id}"
   }
 
-  tags {
+  tags = {
     Name = "Private Route Table"
   }
 }

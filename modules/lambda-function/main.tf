@@ -28,7 +28,7 @@ resource "aws_security_group" "lambda" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "Spoke Lambda"
   }
 }
@@ -124,12 +124,12 @@ resource "aws_lambda_function" "spoke" {
 
   role = "${aws_iam_role.spoke_lambda.arn}"
 
-  vpc_config = {
-    subnet_ids          = ["${var.subnet_ids}"]
+  vpc_config {
+    subnet_ids          = "${var.subnet_ids}"
     security_group_ids  = ["${aws_security_group.lambda.id}"]
   }
 
-  environment = {
+  environment {
     variables = {
       NODE_ENV = "production"
       JOBS_SAME_PROCESS = "1"
