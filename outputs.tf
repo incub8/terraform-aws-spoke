@@ -1,8 +1,8 @@
 # Spoke Deployment Output
-# 
+#
 # Print information about the resources created. These values will be needed
 # in the Claudia.js deploy command.
-# 
+#
 # Source: https://www.terraform.io/intro/getting-started/outputs.html
 
 output "rds_host_address" {
@@ -22,5 +22,5 @@ output "bundle_hash" {
 
 output "s3_bucket_name" {
   description = "S3 Bucket Name"
-  value       = "${var.spoke_domain}"
+  value       = "${var.s3_bucket_name}"
 }
