@@ -118,7 +118,7 @@ resource "aws_lambda_function" "spoke" {
 
 
   handler     = "lambda.handler"
-  runtime     = "nodejs6.10"
+  runtime     = "nodejs10.x"
   memory_size = "512"
   timeout     = "300"
 
