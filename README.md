@@ -8,7 +8,7 @@ You will need Claudia.js to package Spoke:
 $ npm install -g claudia
 ```
 
-You will also need Terraform to provision AWS resources. See their [download page](https://www.terraform.io/downloads.html).
+You will also need Terraform **`0.14.6`** to provision AWS resources. See their [release archive](https://releases.hashicorp.com/terraform/).
 
 ## Deploying Spoke
 
