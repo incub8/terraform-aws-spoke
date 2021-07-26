@@ -1,7 +1,10 @@
 aws_access_key        = "XXXXXXXXXXXXXXXXXX"
 aws_secret_key        = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+aws_region            = "us-east-1"
 rds_password          = "EXTRA_SECRET_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-spoke_domain          = "spoke.example.com"
+
+spoke_domain            = "spoke.example.com"
+s3_bucket_name          = "spoke.example.com"
 
 spoke_session_secret  = "EXTRA_SECRET_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 spoke_action_handlers = ""
@@ -10,9 +13,21 @@ spoke_auth0_domain        = "campaign.auth0.com"
 spoke_auth0_client_id     = "XXXXXXXXXXXXXXXXXX"
 spoke_auth0_client_secret = "XXXXXXXXXXXXXXXXXX"
 
+spoke_default_service = "XXXXXXXXX"
+phone_number_country = "XX"
+
 spoke_twilio_account_sid          = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 spoke_twilio_auth_token           = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 spoke_twilio_message_service_sid  = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+websms_app_url = "https://spoke.example.com"
+websms_callback_token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+websms_username = "XXXXXXXX@example.com"
+websms_password = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+websms_gateway_url = "https://api.websms.com"
+websms_sender_address = "XXXXXXXXXXXX"
+websms_sender_address_type = "international"
+websms_max_sms_per_message = "1"
 
 # spoke_email_host          = ""
 # spoke_email_host_port     = ""
