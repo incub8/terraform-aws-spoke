@@ -46,7 +46,7 @@ resource "aws_s3_bucket" "spoke_bucket" {
   acl    = "private"
 
   tags = {
-    Name = "Spoke Bucket"
+    Name = "${var.spoke_installation_name} Bucket"
   }
 }
 
@@ -54,6 +54,7 @@ resource "aws_s3_bucket" "spoke_bucket" {
 module "vpc" {
   source = "./modules/vpc"
 
+  spoke_installation_name = "${var.spoke_installation_name}"
   aws_region = "${var.aws_region}"
 }
 
@@ -62,9 +63,12 @@ module "vpc" {
 module "postgres" {
   source = "./modules/rds-postgres"
 
-  vpc_id        = "${module.vpc.vpc_id}"
-  subnet_ids    = "${module.vpc.aws_public_subnet_ids}"
-  rds_password  = "${var.rds_password}"
+  spoke_installation_name = "${var.spoke_installation_name}"
+  vpc_id = "${module.vpc.vpc_id}"
+  subnet_ids = "${module.vpc.aws_public_subnet_ids}"
+  rds_identifier = "${var.rds_identifier}"
+  rds_dbname = "${var.rds_dbname}"
+  rds_password = "${var.rds_password}"
 }
 
 
@@ -106,6 +110,7 @@ module "lambda" {
   db_user     = "${module.postgres.username}"
   db_password = "${var.rds_password}"
 
+  spoke_installation_name = "${var.spoke_installation_name}"
   spoke_domain = "${var.spoke_domain}"
   spoke_suppress_seed = "${var.spoke_suppress_seed}"
   spoke_suppress_self_invite = "${var.spoke_suppress_self_invite}"
@@ -159,6 +164,7 @@ module "lambda" {
 module "api_gateway" {
   source = "./modules/api-gateway"
 
+  spoke_installation_name = "${var.spoke_installation_name}"
   invoke_arn = "${module.lambda.invoke_arn}"
   function_arn = "${module.lambda.function_arn}"
 }

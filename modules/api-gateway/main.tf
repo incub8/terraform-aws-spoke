@@ -1,7 +1,7 @@
 # Create API Gateway
 # Source: https://www.terraform.io/docs/providers/aws/r/api_gateway_rest_api.html
 resource "aws_api_gateway_rest_api" "spoke" {
-  name        = "SpokeAPIGateway"
+  name        = "${var.spoke_installation_name}APIGateway"
   description = "Spoke P2P Testing Platform"
 }
 

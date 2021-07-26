@@ -25,6 +25,18 @@ variable "s3_bucket_name" {
   description = "Create a globally unique S3 bucket. Usually the same as spoke_domain: spoke.example.com"
 }
 
+variable "rds_identifier" {
+  type        = "string"
+  description = "The name of the RDS instance. May only contain lowercase letters and hyphens, no underscores."
+  default     = "spokedb"
+}
+
+variable "rds_dbname" {
+  type        = "string"
+  description = "The DB name for the Postgres instance."
+  default     = "spoke_prod"
+}
+
 variable "rds_password" {
   type        = "string"
   description = "The password for the Postgres instance user."
@@ -47,6 +59,12 @@ variable "client_bundle_hash" {
 # -----------------------
 
 # Spoke
+
+variable "spoke_installation_name" {
+  type        = "string"
+  description = "A unique identifier to include in the names of all AWS resources. Use this to distinguish e.g. 'SpokeProduction' and 'SpokeStaging'."
+  default     = "Spoke"
+}
 
 variable "spoke_domain" {
   type        = "string"

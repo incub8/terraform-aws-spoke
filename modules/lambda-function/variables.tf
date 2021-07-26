@@ -72,6 +72,12 @@ variable "db_password" {
 
 # Spoke
 
+variable "spoke_installation_name" {
+  type        = "string"
+  description = "A unique identifier to include in the names of all AWS resources. Use this to distinguish e.g. 'SpokeProduction' and 'SpokeStaging'."
+  default     = "Spoke"
+}
+
 variable "spoke_domain" {
   type        = "string"
   description = "The domain that Spoke will be running on. Ex. spoke.example.com"

@@ -29,14 +29,14 @@ resource "aws_security_group" "lambda" {
   }
 
   tags = {
-    Name = "Spoke Lambda"
+    Name = "${var.spoke_installation_name} Lambda"
   }
 }
 
 # Create Lambda Role
 # Source: https://www.terraform.io/docs/providers/aws/r/iam_role.html
 resource "aws_iam_role" "spoke_lambda" {
-  name = "SpokeOnLambda"
+  name = "${var.spoke_installation_name}OnLambda"
 
   assume_role_policy = <<EOF
 {
@@ -109,7 +109,7 @@ EOF
 # Create Lambda function
 # Source: https://www.terraform.io/docs/providers/aws/r/lambda_function.html
 resource "aws_lambda_function" "spoke" {
-  function_name = "Spoke"
+  function_name = "${var.spoke_installation_name}"
   description   = "Spoke P2P Texting Platform"
 
   s3_bucket         = "${var.s3_bucket_name}"

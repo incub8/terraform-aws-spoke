@@ -21,7 +21,7 @@ resource "aws_security_group" "postgres" {
   }
 
   tags = {
-    Name = "Spoke Postgres"
+    Name = "${var.spoke_installation_name} Postgres"
   }
 }
 
@@ -46,11 +46,11 @@ resource "aws_security_group_rule" "allow_all_postgres" {
 # Create RDS Subnet Group
 # Source: https://www.terraform.io/docs/providers/aws/r/db_subnet_group.html
 resource "aws_db_subnet_group" "postgres" {
-  name       = "postgres"
+  name       = "${lower(var.spoke_installation_name)}_postgres"
   subnet_ids = "${var.subnet_ids}"
 
   tags = {
-    Name = "Spoke Postgres"
+    Name = "${var.spoke_installation_name} Postgres"
   }
 }
 

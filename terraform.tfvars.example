@@ -1,8 +1,14 @@
 aws_access_key        = "XXXXXXXXXXXXXXXXXX"
 aws_secret_key        = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 aws_region            = "us-east-1"
+
+# only lowercase and hyphens, no underscore
+rds_identifier        = "spokedb"
+
+rds_dbname            = "spoke_prod"
 rds_password          = "EXTRA_SECRET_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
+spoke_installation_name = "Spoke"
 spoke_domain            = "spoke.example.com"
 s3_bucket_name          = "spoke.example.com"
 

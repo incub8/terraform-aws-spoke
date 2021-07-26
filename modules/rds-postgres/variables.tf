@@ -31,7 +31,7 @@ variable "rds_class" {
 
 variable "rds_identifier" {
   type        = "string"
-  description = "The name of the RDS instance."
+  description = "The name of the RDS instance. May only contain lowercase letters and hyphens, no underscores."
   default     = "spokedb"
 }
 
@@ -61,4 +61,15 @@ variable "rds_username" {
 variable "rds_password" {
   type        = "string"
   description = "The password for the Postgres instance user."
+}
+
+
+# -----------------------
+# Spoke Variables
+# -----------------------
+
+variable "spoke_installation_name" {
+  type        = "string"
+  description = "A unique identifier to include in the names of all AWS resources. Use this to distinguish e.g. 'SpokeProduction' and 'SpokeStaging'."
+  default     = "Spoke"
 }

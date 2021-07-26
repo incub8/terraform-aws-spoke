@@ -6,7 +6,7 @@ resource "aws_vpc" "spoke_vpc" {
   enable_dns_hostnames   = true
 
   tags = {
-    Name = "Spoke VPC"
+    Name = "${var.spoke_installation_name} VPC"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.spoke_vpc.id}"
 
   tags = {
-    Name = "Spoke IGW"
+    Name = "${var.spoke_installation_name} IGW"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_subnet" "public_a" {
   availability_zone = "${var.aws_region}a"
 
   tags = {
-    Name = "Public A"
+    Name = "${var.spoke_installation_name} Public A"
   }
 }
 
@@ -43,7 +43,7 @@ resource "aws_subnet" "public_b" {
   availability_zone = "${var.aws_region}b"
 
   tags = {
-    Name = "Public B"
+    Name = "${var.spoke_installation_name} Public B"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_subnet" "private_a" {
   availability_zone = "${var.aws_region}a"
 
   tags = {
-    Name = "Private A"
+    Name = "${var.spoke_installation_name} Private A"
   }
 }
 
@@ -65,7 +65,7 @@ resource "aws_subnet" "private_b" {
   availability_zone = "${var.aws_region}b"
 
   tags = {
-    Name = "Private B"
+    Name = "${var.spoke_installation_name} Private B"
   }
 }
 
@@ -86,7 +86,7 @@ resource "aws_nat_gateway" "gw" {
   subnet_id     = "${aws_subnet.public_a.id}"
 
   tags = {
-    Name = "Lambda NAT"
+    Name = "${var.spoke_installation_name} Lambda NAT"
   }
 
   # Source: https://www.terraform.io/docs/providers/aws/r/nat_gateway.html#argument-reference
@@ -107,7 +107,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "Public Route Table"
+    Name = "${var.spoke_installation_name} Public Route Table"
   }
 }
 
@@ -121,7 +121,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Name = "Private Route Table"
+    Name = "${var.spoke_installation_name} Private Route Table"
   }
 }
 
