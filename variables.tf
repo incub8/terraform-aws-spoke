@@ -54,6 +54,12 @@ variable "client_bundle_hash" {
   description = "Hash of client bundle.js."
 }
 
+variable "additional_tags" {
+  default     = {}
+  description = "Additional resource tags"
+  type        = map(string)
+}
+
 # -----------------------
 # Spoke Variables
 # -----------------------

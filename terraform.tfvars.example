@@ -2,6 +2,11 @@ aws_access_key        = "XXXXXXXXXXXXXXXXXX"
 aws_secret_key        = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 aws_region            = "us-east-1"
 
+#additional_tags = {
+#  "my-tag": "example",
+#  "my-other-tag": "example",
+#}
+
 # only lowercase and hyphens, no underscore
 rds_identifier        = "spokedb"
 
