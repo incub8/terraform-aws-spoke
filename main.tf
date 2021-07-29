@@ -81,7 +81,7 @@ resource "aws_s3_bucket_object" "client_payload" {
   bucket = var.s3_bucket_name
   key    = "static/bundle.${var.client_bundle_hash}.js"
   source = var.client_bundle_location
-  etag   = md5(filebase64sha256(var.client_bundle_location))
+  etag   = filemd5(var.client_bundle_location)
   depends_on = [aws_s3_bucket.spoke_bucket]
 }
 
@@ -90,7 +90,7 @@ resource "aws_s3_bucket_object" "server_payload" {
   bucket = var.s3_bucket_name
   key    = "deploy/server.zip"
   source = var.server_bundle_location
-  etag   = md5(filebase64sha256(var.server_bundle_location))
+  etag   = filemd5(var.server_bundle_location)
   depends_on = [aws_s3_bucket.spoke_bucket]
 }
 
