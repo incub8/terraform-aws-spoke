@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # Build Spoke and deploy it using Terraform.
 
 ##### Constants
@@ -9,6 +9,7 @@ DEPLOY_PATH="$TERRAFORM_PATH/build"
 
 DATE=$(date +"%Y%m%d%H%M")
 TMP_ZIP_PATH=/tmp/spoke-server-$DATE.zip
+TMP_DIR=/tmp/spoke-server-dir-$DATE
 
 SPOKE_PATH=
 SPOKE_DOMAIN=
@@ -47,6 +48,47 @@ build_spoke()
         echo "For details see: $CLAUDIA_LOG_LOCATION"
         exit 1
     fi
+
+    echo -n "Trimming large dependencies..."
+
+    mkdir -p $TMP_DIR/node_modules/aws-sdk/clients
+    cd $TMP_DIR/node_modules/aws-sdk/clients
+
+    touch \
+        gamelift.d.ts gamelift.js \
+        ec2.d.ts ec2.js \
+        sagemaker.d.ts sagemaker.js \
+        rds.d.ts rds.js \
+        ssm.d.ts ssm.js \
+        iam.d.ts iam.js \
+        mediaconvert.d.ts mediaconvert.js \
+        lightsail.d.ts lightsail.js \
+        iot.d.ts iot.js \
+        glue.d.ts glue.js \
+        securityhub.d.ts securityhub.js \
+        pinpoint.d.ts pinpoint.js \
+        ecs.d.ts ecs.js \
+        cloudformation.d.ts cloudformation.js \
+        redshift.d.ts redshift.js \
+        wafregional.d.ts wafregional.js \
+        cognitoidentityserviceprovider.d.ts cognitoidentityserviceprovider.js \
+        dynamodb.d.ts dynamodb.js \
+        medialive.d.ts medialive.js \
+        quicksight.d.ts quicksight.js \
+        waf.d.ts waf.js \
+        kms.d.ts kms.js \
+        cloudfront.d.ts cloudfront.js \
+        route53.d.ts route53.js \
+        chime.d.ts chime.js \
+        storagegateway.d.ts storagegateway.js \
+        configservice.d.ts configservice.js \
+        swf.d.ts swf.js \
+        dms.d.ts dms.js \
+        elasticache.d.ts elasticache.js
+
+    cd $TMP_DIR
+    zip -r $TMP_ZIP_PATH node_modules
+
 }   # end of build_spoke
 
 gather_bundle()
