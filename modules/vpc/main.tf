@@ -75,7 +75,7 @@ resource "aws_subnet" "private_b" {
 resource "aws_eip" "lambda_nat" {
   vpc = true
 
-  depends_on                = ["aws_internet_gateway.gw"]
+  depends_on                = [aws_internet_gateway.gw]
 }
 
 
@@ -90,7 +90,7 @@ resource "aws_nat_gateway" "gw" {
   }
 
   # Source: https://www.terraform.io/docs/providers/aws/r/nat_gateway.html#argument-reference
-  depends_on = ["aws_internet_gateway.gw"]
+  depends_on = [aws_internet_gateway.gw]
 }
 
 

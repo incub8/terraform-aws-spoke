@@ -82,7 +82,7 @@ resource "aws_s3_bucket_object" "client_payload" {
   key    = "static/bundle.${var.client_bundle_hash}.js"
   source = var.client_bundle_location
   etag   = md5(filebase64sha256(var.client_bundle_location))
-  depends_on = ["aws_s3_bucket.spoke_bucket"]
+  depends_on = [aws_s3_bucket.spoke_bucket]
 }
 
 # Upload Lambda Function
@@ -91,7 +91,7 @@ resource "aws_s3_bucket_object" "server_payload" {
   key    = "deploy/server.zip"
   source = var.server_bundle_location
   etag   = md5(filebase64sha256(var.server_bundle_location))
-  depends_on = ["aws_s3_bucket.spoke_bucket"]
+  depends_on = [aws_s3_bucket.spoke_bucket]
 }
 
 module "lambda" {
