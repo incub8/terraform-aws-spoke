@@ -7,20 +7,20 @@
 
 output "rds_host_address" {
   description = "RDS Host Address"
-  value       = "${module.postgres.address}"
+  value       = module.postgres.address
 }
 
 output "api_url" {
   description = "Base API Gateway URL. Needed to set DNS record."
-  value       = "${module.api_gateway.gateway_url}"
+  value       = module.api_gateway.gateway_url
 }
 
 output "bundle_hash" {
   description = "The bundle hash for ease of reployment without rebuilding source."
-  value       = "${var.client_bundle_hash}"
+  value       = var.client_bundle_hash
 }
 
 output "s3_bucket_name" {
   description = "S3 Bucket Name"
-  value       = "${var.s3_bucket_name}"
+  value       = var.s3_bucket_name
 }
