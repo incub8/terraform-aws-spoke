@@ -5,21 +5,6 @@ resource "aws_security_group" "postgres" {
   description = "Allow all inbound Postgres traffic"
   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    self        = true
-    description = "Postgres access"
-  }
-
-  egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-
   tags = {
     Name = "${var.spoke_installation_name} Postgres"
   }
@@ -28,7 +13,34 @@ resource "aws_security_group" "postgres" {
 
 # Create security group rule
 # Source: https://www.terraform.io/docs/providers/aws/r/security_group_rule.html
-resource "aws_security_group_rule" "allow_all_postgres" {
+resource "aws_security_group_rule" "postgres_ingress" {
+  type        = "ingress"
+  from_port   = 5432
+  to_port     = 5432
+  protocol    = "tcp"
+  self        = true
+  description = "Postgres access"
+
+  security_group_id = aws_security_group.postgres.id
+}
+
+
+# Create security group rule
+# Source: https://www.terraform.io/docs/providers/aws/r/security_group_rule.html
+resource "aws_security_group_rule" "postgres_egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.postgres.id
+}
+
+
+# Create security group rule
+# Source: https://www.terraform.io/docs/providers/aws/r/security_group_rule.html
+resource "aws_security_group_rule" "postgres_ingress_public" {
   # Only create rule if publicly accessible
   count       = var.publicly_accessible
 
