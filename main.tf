@@ -101,7 +101,7 @@ module "lambda" {
   subnet_ids  = "${module.vpc.aws_private_subnet_ids}"
   aws_region  = "${var.aws_region}"
   s3_bucket_name   = "${var.s3_bucket_name}"
-  s3_key      = "deploy/server.zip"
+  s3_key      = aws_s3_bucket_object.server_payload.key
   source_code_hash  = "${filebase64sha256("${var.server_bundle_location}")}"
 
   db_host     = "${module.postgres.address}"
