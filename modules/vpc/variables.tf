@@ -12,7 +12,7 @@ variable "aws_region" {
 # -----------------------
 
 variable "spoke_installation_name" {
-  type        = "string"
+  type        = string
   description = "A unique identifier to include in the names of all AWS resources. Use this to distinguish e.g. 'SpokeProduction' and 'SpokeStaging'."
   default     = "Spoke"
 }
